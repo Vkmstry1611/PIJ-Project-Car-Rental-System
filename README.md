@@ -1,80 +1,43 @@
-Car Rental System
+# Car Rental System
 
 A Java application that simulates a car rental service using JDBC and MySQL. This system includes options to rent, return, and view cars, along with maintaining customer and rental records in a relational database. Built with modularity, OOP principles, and custom exceptions.
 
-Table of Contents
+##Table of Contents
 
-Features
+![image](https://github.com/user-attachments/assets/0ac79ec1-3c0a-49ff-a3c7-cd789d02e7d3)
 
-Project Structure
+##  Features
 
-Class & Exception Descriptions
-
-Database Schema
-
-Usage Instructions
-
-Cost Calculation
-
-Exception Handling
-
-How to Run
-
-Authors
-
-Features
-
-View available cars
-
-Rent a car with customer validation
-
-View rented cars
-
-Return a car and calculate cost
-
-Uses MySQL for persistent storage
-
-Uses custom exceptions and object-oriented design
+- View available cars
+- Rent a car with customer validation
+- View ongoing rentals
+- Return a car and calculate rental cost
+- Persistent storage using MySQL
+- Clean modular design with OOP concepts
+- Custom exceptions for business logic
 
 Project Structure
 
-CarRentalSystem/
-├── Main.java                     # Entry point, CLI menu
-├── CarRentalSystem.java         # Main logic controller
-├── DBConnection.java            # JDBC connection setup
-├── Car.java                     # Car model
-├── Customer.java                # Customer model
-├── Rental.java                  # Rental model
-├── CarNotAvailableException.java  # Exception for unavailable cars
-├── CustomerNotFoundException.java # Exception for missing customers
-├── ViewCustomerDetails.java     # View customer & car rented info
+![image](https://github.com/user-attachments/assets/6487431a-5ba7-4a15-8c90-58ce630d01fb)
 
-Class & Exception Descriptions
+## Class & Exception Descriptions
 
-Main Classes
+### Main Classes
+- **Main.java**: Entry point of the application; manages CLI menu.
+- **CarRentalSystem.java**: Core logic for renting, returning, and listing cars.
+- **DBConnection.java**: Establishes and handles MySQL DB connection.
+- **Car.java**: Represents car entity and its attributes.
+- **Customer.java**: Stores customer data and validations.
+- **Rental.java**: Manages rental details including dates and relationships.
 
-Main.java: Entry point and handles CLI menu.
+### Custom Exceptions
+- **CarNotAvailableException**: Thrown when a selected car is not available.
+- **CustomerNotFoundException**: Thrown when return process can't find the customer.
 
-CarRentalSystem.java: Contains main business logic: view, rent, return, and list rented cars.
 
-DBConnection.java: Sets up MySQL database connection.
+##  Database Schema
 
-Car.java: Encapsulates car details.
-
-Customer.java: Encapsulates customer info.
-
-Rental.java: Holds rental transaction data.
-
-Custom Exceptions
-
-CarNotAvailableException: Raised if selected car is already rented.
-
-CustomerNotFoundException: Raised if the customer is not found during return.
-
-Database Schema
-
-Ensure MySQL is running and the carrentalsystem database is created.
-
+```SQL
 CREATE DATABASE carrentalsystem;
 USE carrentalsystem;
 
@@ -115,77 +78,71 @@ INSERT INTO cars (car_name, daily_rate, seating_capacity, fuel_type, transmissio
 ('Hyundai Creta', 2800.00, 5, 'Diesel', 'Automatic'),
 ('Kia Seltos', 2700.00, 5, 'Petrol', 'Automatic'),
 ('Tata Nexon EV', 3200.00, 5, 'Electric', 'Automatic');
+```
 
-Usage Instructions
+## Usage Instructions
 
-View Available Cars
+### View Available Cars
+- Lists all available cars with their details.
 
-Displays car_id, name, rate, fuel type, seating, and transmission.
+### Rent a Car
+- Input: car_id, customer details (name, contact, license, age)
+- Age must be ≥ 18
+- Adds customer, marks car as unavailable, stores rental info
 
-Rent a Car
+### View Rented Cars
+- Displays car name, rental date, and customer
 
-Input: car_id, customer name, contact, license, and age.
+### Return Car
+- Input: car_id, customer name
+- Calculates rental cost
+- Marks car as available
+- Updates return date
 
-Validates age (must be ≥ 18).
+### Exit
+- Exits the CLI menu
 
-Adds customer to DB, marks car as unavailable, and stores rental.
 
-View Rented Cars
-
-Displays ongoing rentals with car name, rental date.
-
-Return Car
-
-Input: car_id, customer name.
-
-Calculates cost based on number of days.
-
-Marks car as available and sets return_date.
-
-Exit
-
-Exits the CLI.
-
-Cost Calculation
-
+## Cost Calculation
+```
 Total Cost = Daily Rate × Number of Days
-Number of Days = Difference between rental_date and return_date
+Number of Days = return_date - rental_date
+```
 
-Exception Handling
+## Exception Handling
 
-Invalid age throws error.
+- Invalid age throws error.
+- CarNotAvailableException thrown for unavailable car.
+- CustomerNotFoundException thrown for invalid return.
 
-CarNotAvailableException thrown for unavailable car.
+## How to Run
 
-CustomerNotFoundException thrown for invalid return.
+- Add MySQL JDBC driver (mysql-connector-java) to your project dependencies (e.g., IntelliJ).
 
-How to Run
-
-Add JDBC driver to IntelliJ dependencies.
-
-Compile:
-
+### Compile:
+```
 javac *.java
-
-Run:
-
+```
+### Run:
+```
 java Main
+```
 
-Authors
+## Authors
 
-Daniel John Jacob
+### Daniel John Jacob
 
 PRN: 23070126027
 
 Batch: AIML A2
 
-Shrey Ardeshana
+### Shrey Ardeshana
 
 PRN: 23070126019
 
 Batch: AIML A1
 
-Vidish Mistry
+### Vidish Mistry
 
 PRN: 23070126146
 
