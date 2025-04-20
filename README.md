@@ -1,32 +1,83 @@
-# Car Rental System
+Car Rental System
 
-This Java-based Car Rental System uses JDBC to interact with a MySQL database. The project allows users to view, rent, and return cars, and store customer and rental details.
+A Java application that simulates a car rental service using JDBC and MySQL. This system includes options to rent, return, and view cars, along with maintaining customer and rental records in a relational database. Built with modularity, OOP principles, and custom exceptions.
 
----
+Table of Contents
 
-## Features
+Features
 
-1. **View Available Cars**  
-2. **Rent a Car** (with validation for age)  
-3. **View Rented Cars**  
-4. **Return a Car**  
-5. **Exit**
+Project Structure
 
----
+Class & Exception Descriptions
 
-## Tech Stack
+Database Schema
 
-- Java  
-- JDBC  
-- MySQL  
+Usage Instructions
 
----
+Cost Calculation
 
-## Database Schema
+Exception Handling
 
-Make sure to use the `carrentalsystem` database and run the following SQL queries:
+How to Run
 
-```sql
+Authors
+
+Features
+
+View available cars
+
+Rent a car with customer validation
+
+View rented cars
+
+Return a car and calculate cost
+
+Uses MySQL for persistent storage
+
+Uses custom exceptions and object-oriented design
+
+Project Structure
+
+CarRentalSystem/
+├── Main.java                     # Entry point, CLI menu
+├── CarRentalSystem.java         # Main logic controller
+├── DBConnection.java            # JDBC connection setup
+├── Car.java                     # Car model
+├── Customer.java                # Customer model
+├── Rental.java                  # Rental model
+├── CarNotAvailableException.java  # Exception for unavailable cars
+├── CustomerNotFoundException.java # Exception for missing customers
+├── ViewCustomerDetails.java     # View customer & car rented info
+
+Class & Exception Descriptions
+
+Main Classes
+
+Main.java: Entry point and handles CLI menu.
+
+CarRentalSystem.java: Contains main business logic: view, rent, return, and list rented cars.
+
+DBConnection.java: Sets up MySQL database connection.
+
+Car.java: Encapsulates car details.
+
+Customer.java: Encapsulates customer info.
+
+Rental.java: Holds rental transaction data.
+
+Custom Exceptions
+
+CarNotAvailableException: Raised if selected car is already rented.
+
+CustomerNotFoundException: Raised if the customer is not found during return.
+
+Database Schema
+
+Ensure MySQL is running and the carrentalsystem database is created.
+
+CREATE DATABASE carrentalsystem;
+USE carrentalsystem;
+
 CREATE TABLE cars (
     car_id INT PRIMARY KEY AUTO_INCREMENT,
     car_name VARCHAR(50) NOT NULL,
@@ -55,40 +106,87 @@ CREATE TABLE rentals (
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
+INSERT INTO cars (car_name, daily_rate, seating_capacity, fuel_type, transmission) VALUES
+('Toyota Camry', 2500.00, 5, 'Petrol', 'Automatic'),
+('Honda Civic', 2200.00, 5, 'Petrol', 'Manual'),
+('Tesla Model 3', 3500.00, 5, 'Electric', 'Automatic'),
+('Mahindra Thar', 3000.00, 4, 'Diesel', 'Manual'),
+('Maruti Suzuki Swift', 1800.00, 5, 'Petrol', 'Manual'),
+('Hyundai Creta', 2800.00, 5, 'Diesel', 'Automatic'),
+('Kia Seltos', 2700.00, 5, 'Petrol', 'Automatic'),
+('Tata Nexon EV', 3200.00, 5, 'Electric', 'Automatic');
 
-# File Descriptions
+Usage Instructions
 
-## 1. `Main.java`
-- **Main entry point**
-- Creates instance of `CarRentalSystem` and invokes `showMenu()`.
+View Available Cars
 
-## 2. `CarRentalSystem.java`
-Core logic of the system. Contains:
-- `showMenu()` – Displays main menu and handles user input.
-- `displayAvailableCars()` – Lists all cars with `available = true`.
-- `rentCar()` – Takes user input, validates age, inserts into `customers` and `rentals`, sets car to unavailable.
-- `viewRentedCars()` – Lists all ongoing rentals with car and rental info.
-- `returnCar()` – Marks car as returned by updating `return_date` and making car available again. Calculates total cost based on rental period.
-- `calculateDaysRented()` – Helper function to compute number of days between `rental_date` and return date.
-- `calculateTotalCost()` – Computes total cost using `daily_rate * days`.
+Displays car_id, name, rate, fuel type, seating, and transmission.
 
-## 3. `DBConnection.java`
-- Establishes and returns MySQL connection using JDBC.
-- Modify DB credentials here as needed.
+Rent a Car
 
-## 4. `CarNotAvailableException.java`
-- Custom exception thrown when trying to rent a car that’s already rented.
+Input: car_id, customer name, contact, license, and age.
 
-## 5. `CustomerNotFoundException.java`
-- Custom exception thrown when attempting to return a car using a non-existent customer.
+Validates age (must be ≥ 18).
 
+Adds customer to DB, marks car as unavailable, and stores rental.
 
----
+View Rented Cars
 
-**Authors**
+Displays ongoing rentals with car name, rental date.
 
---Vidish Mistry (23070126146)
+Return Car
 
---Daniel John Jacob (23070126027)
+Input: car_id, customer name.
 
---Shrey Ardeshana (23070126019)
+Calculates cost based on number of days.
+
+Marks car as available and sets return_date.
+
+Exit
+
+Exits the CLI.
+
+Cost Calculation
+
+Total Cost = Daily Rate × Number of Days
+Number of Days = Difference between rental_date and return_date
+
+Exception Handling
+
+Invalid age throws error.
+
+CarNotAvailableException thrown for unavailable car.
+
+CustomerNotFoundException thrown for invalid return.
+
+How to Run
+
+Add JDBC driver to IntelliJ dependencies.
+
+Compile:
+
+javac *.java
+
+Run:
+
+java Main
+
+Authors
+
+Daniel John Jacob
+
+PRN: 23070126027
+
+Batch: AIML A2
+
+Shrey Ardeshana
+
+PRN: 23070126019
+
+Batch: AIML A1
+
+Vidish Mistry
+
+PRN: 23070126146
+
+Batch: AIML B3
